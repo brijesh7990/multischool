@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}
+Parent Create
+{% endblock title %}
+
+{% block main_content %}
+<form action="" method="post" novalidate enctype="multipart/form-data">
+    {% csrf_token %}
+    {{userform.as_p}}
+    {{form.as_p}}
+    <input type="submit" value="Parent Create" class="btn btn-primary btn-sm">
+
+</form>
+{% endblock main_content %}

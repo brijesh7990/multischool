@@ -68,6 +68,7 @@ class Teacher(BaseModel):
     def __str__(self):
         return self.user.email
 
+
 class Admin(BaseModel):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     school = models.ForeignKey("school.School", on_delete=models.CASCADE)
