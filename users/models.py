@@ -10,7 +10,9 @@ class User(AbstractUser, BaseModel):
     TEACHER = "teacher"
     STUDENT = "student"
     PARENT = "parent"
+    SUPERADMIN = "superadmin"
     USER_TYPE_CHOICES = [
+        (SUPERADMIN, "Superadmin"),
         (ADMIN, "admin"),
         (TEACHER, "teacher"),
         (STUDENT, "student"),
@@ -62,6 +64,13 @@ class Teacher(BaseModel):
     experience = models.CharField(max_length=100)
     joining_date = models.DateField()
     profile_pic = models.ImageField(upload_to="media/teacher/profile_pic/")
+
+    def __str__(self):
+        return self.user.email
+
+class Admin(BaseModel):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    school = models.ForeignKey("school.School", on_delete=models.CASCADE)
 
     def __str__(self):
         return self.user.email

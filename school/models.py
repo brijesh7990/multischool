@@ -31,4 +31,4 @@ class Section(BaseModel):
     school = models.ForeignKey(School, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return f"standard: {self.standard} section: {self.name}"
