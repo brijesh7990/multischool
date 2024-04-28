@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}
+Student Create
+{% endblock title %}
+
+{% block main_content %}
+<form action="" method="post" novalidate enctype="multipart/form-data">
+    {% csrf_token %}
+    {{userform.as_p}}
+    {{form.as_p}}
+    <input type="submit" value="Add Student" class="btn btn-sm btn-primary">
+</form>
+{% endblock main_content %}
+
+

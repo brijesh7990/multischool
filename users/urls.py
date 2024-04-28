@@ -49,4 +49,5 @@ urlpatterns += [
 
 urlpatterns += [
     path("parentcreate/", views.ParentCreateView.as_view(), name="parentcreate"),
+    path("studentcreate/", views.StudentCreateView.as_view(), name="studentcreate"),
 ]

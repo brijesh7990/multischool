@@ -1,4 +1,6 @@
 from django import forms
+
+from school.models import Section, Standard
 from .models import User, Parent, Student, Admin, Teacher
 from django.contrib.auth import get_user_model
 from django import forms
@@ -16,7 +18,7 @@ class UsersForm(forms.ModelForm):
     class Meta:
         model = get_user_model()
         fields = ["username", "email", "password"]
-    
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
@@ -39,7 +41,7 @@ class ParentForm(forms.ModelForm):
             # "school",
             "profile_pic",
         ]
-    
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
@@ -47,17 +49,26 @@ class ParentForm(forms.ModelForm):
 
 
 class StudentForm(forms.ModelForm):
+    standard = forms.ModelChoiceField(queryset=Standard.objects.none())
+    section = forms.ModelChoiceField(queryset=Standard.objects.none())
     class Meta:
         model = Student
         fields = [
-            "user",
+            # "user",
             "roll_number",
             "standard",
             "section",
             "parent",
-            "school",
+            # "school",
             "profile_pic",
         ]
+
+    def __init__(self, user, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['standard'].queryset = Standard.objects.filter(school=user.admin.school)
+        self.fields["section"].queryset = Section.objects.filter(school=user.admin.school)
+        for field in self.fields.values():
+            field.widget.attrs["class"] = "form-control"
 
 
 class AdminForm(forms.ModelForm):
